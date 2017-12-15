@@ -74,6 +74,7 @@ public class Sampler extends GUIApplication {
 			scroll.update();
 			
 			viewObjects.add(scroll);
+			viewObjects.add(new Bowser());
 			
 			
 			TextBox box = new TextBox(20, 160, 200, 100, "Try typing here.");
