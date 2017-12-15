@@ -3,9 +3,10 @@ package guiPlayer;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import guiTeacher.components.AnimatedComponent;
 import guiTeacher.components.Component;
 
-public class Bowser extends Component{
+public class Bowser extends AnimatedComponent{
 
 	public Bowser() {
 		super(40,40,100,100);
