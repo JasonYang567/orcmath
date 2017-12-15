@@ -10,6 +10,7 @@ public class Bowser extends AnimatedComponent{
 
 	public Bowser() {
 		super(40,40,100,100);
+
 		update();
 	}
 
@@ -17,7 +18,8 @@ public class Bowser extends AnimatedComponent{
 	public void update(Graphics2D g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		viewObjects.add(new Bowser());
+		viewObjects.add(new Bowser());		
+		super.update(g);
 	}
 
 }
