@@ -9,43 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CatalogMaker {
+public class FileLoadingConsole {
 
-	private ArrayList<MarioPowerUp> list;
-	
-	public CatalogMaker() {
-		list = new ArrayList<MarioPowerUp>();
-		list.add(new MarioPowerUp("Mushroom", 50));
-		list.add(new MarioPowerUp("Star", 1000000000));
-		list.add(new MarioPowerUp("Flower", 100));
+	public static void main(String[] args){
+		List<String> content = testFileLoading();
+		displayContent(content);
+		testSaveContent("test.csv");
 	}
 
-	public static void main(String[] args) {
-		CatalogMaker test = new CatalogMaker(); 
-		System.out.println(test.getCSVContent());
-		test.testFileLoading();
-		test.testSaveContent("MarioData.csv");
-	}
-
-	public String getCSVContent() {
-		String data = "name,price\n";
-		for(MarioPowerUp m : list) {
-			data += m.toString() + "\n";
-		}
-		return data;
-	}
-	
-	public void addNewItem(String name, int price) {
-		list.add(new MarioPowerUp(name,price));
-		System.out.println("Item successfully added!");
-	}
-
-	private void testSaveContent(String fileName) {
+	private static void testSaveContent(String fileName) {
 		try{    
 			FileWriter fw=new FileWriter(fileName);    
-			for(MarioPowerUp m: list){
-				fw.write(m+"\n");
-			}
+			fw.write("This file was created programmatically.");    
 			fw.close();    
 			System.out.println("Success! File \""+fileName+"\" saved!");
 		}
@@ -53,8 +28,15 @@ public class CatalogMaker {
 			System.out.println("An IOException was thrown. \nCheck to see that the directory where you tried to save the file actually exists.");
 		}
 	}
-	
-	private List<String> testFileLoading() {
+
+	private static void displayContent(List<String> content) {
+		//print the content:
+		for(String item : content){
+			System.out.println(item);
+		}
+	}
+
+	private static List<String> testFileLoading() {
 		Scanner in = new Scanner(System.in);
 		String fileName = "";
 		List<String> content = new ArrayList<String>();
@@ -69,8 +51,7 @@ public class CatalogMaker {
 				//a BufferedReader enables us to read the file one line at a time
 				BufferedReader br = new BufferedReader(fileReader);
 				while ((line = br.readLine()) != null) {
-					String[] param = line.split(" ");
-					content.add(new MarioPowerUp(param[0], Integer.parseInt(param[1])));
+					content.add(line);
 					/*
 					 * useful later:
 					 * split only a comma that has an even number of quotes ahead of it

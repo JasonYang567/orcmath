@@ -2,6 +2,8 @@ package guiPlayer;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import guiTeacher.components.Component;
 
@@ -11,7 +13,7 @@ public class MarioPowerUp extends Component{
 	private int price;
 	
 	public MarioPowerUp(String name, int price) {
-		super(100,100,10,10);	//x coord, y coord, width, height
+		super(100,100,10,10);	//x coordinate, y coordinate, width, height
 		this.price = price;
 		this.name = name;
 	}
@@ -26,4 +28,5 @@ public class MarioPowerUp extends Component{
 	public String toString(){
 		return name + " " + price;
 	}
+	
 }
