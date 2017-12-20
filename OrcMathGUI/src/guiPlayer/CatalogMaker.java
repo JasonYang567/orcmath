@@ -6,145 +6,59 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CatalogMaker {
 
-	public static Scanner in;
-
-	private ArrayList<Book> catalog;
-
+	private ArrayList<MarioPowerUp> list;
+	
 	public CatalogMaker() {
-		//instantiate the catalog
-		catalog = new ArrayList<Book>();
+		list = new ArrayList<MarioPowerUp>();
+		list.add(new MarioPowerUp("Mushroom", 50));
+		list.add(new MarioPowerUp("Star", 1000000000));
+		list.add(new MarioPowerUp("Flower", 100));
 	}
 
-	public static void main(String[] args){
-		CatalogMaker maker = new CatalogMaker();
-		in = new Scanner(System.in);
-		maker.menu();
+	public static void main(String[] args) {
+		CatalogMaker test = new CatalogMaker(); 
+		System.out.println(test.getCSVContent());		
+		test.testSaveContent("MarioData.csv");
+		test.testFileLoading();
+
 	}
 
-	private static void displayMessage(String message){
-		System.out.println(message);
-	}
-
-	private void menu() {
-		displayMessage("Would you like to \"load\" a save file or \"create\" a new list? ");
-		String[] allowedEntry = {"load","create"};
-		String input = getEntry(allowedEntry);
-		if(input.equals("load")){
-			load();
-		}else{
-			create();
+	public String getCSVContent() {
+		String data = "name,price\n";
+		for(MarioPowerUp m : list) {
+			data += m.toString() + "\n";
 		}
+		return data;
 	}
-
-	private void create() {
-		
-		boolean running = true;
-		while(running){
-			showCatalog();
-			displayMessage("Would you like to \"add\", \"save\", or \"quit\"?");
-			String[] allowedEntry = {"add","save","quit"};
-			String selection = getEntry(allowedEntry);
-			if(selection.equals("add")){
-				add();
-			}else if(selection.equals("save")){
-				save();
-			}else{
-				running = false;
-			}
-		}
+	
+	public void addNewItem(String name, int price) {
+		list.add(new MarioPowerUp(name,price));
+		System.out.println("Item successfully added!");
 	}
-
-	private void add() {
-		String title = null;
-		String author = null;
-		int pages = 0;
-		displayMessage("Please enter a title");
-		title = getStringInput();
-		displayMessage("Please enter an author");
-		author = getStringInput();
-		displayMessage("Please enter the number of pages.");
-		pages = getIntegerInput();
-		addBook(new Book(title, author, pages));
-	}
-
-	private int getIntegerInput() {
-		String text = in.nextLine();
-		int value = 0;
-		boolean valid = false;
-		while(!valid){
-			try{
-				value = Integer.parseInt(text);
-				valid = true;
-			}catch(NumberFormatException nfe){
-				displayMessage("You must enter an integer.");
-			}
-		}
-		return value;
-	}
-
-	private static String getStringInput(){
-		String text = in.nextLine();
-		while(text.isEmpty()){
-			displayMessage("You must enter a non-empty String.");
-			text = in.nextLine();
-		}
-		return text;
-	}
-
-
-	private void addBook(Book b){
-		catalog.add(b);
-	}
-
-	private void save() {
+	
+	private void testSaveContent(String fileName) {
 		try{    
-			FileWriter fw=new FileWriter("BookCatalog.csv");
-			for(Book b: catalog){
-				fw.write(b+"\n");    	
+			FileWriter fw=new FileWriter(fileName);    
+			for(MarioPowerUp m: list){
+				fw.write(m+"\n");
 			}
-
 			fw.close();    
-			System.out.println("Success! File \"BookCatalog.csv\" saved!");
-		}catch(IOException e){
+			System.out.println("Success! File \""+fileName+"\" saved!");
+		}
+		catch(IOException e){
 			System.out.println("An IOException was thrown. \nCheck to see that the directory where you tried to save the file actually exists.");
 		}
 	}
-
-	private static String getEntry(String[] allowedEntry) {
-		String input = in.nextLine();
-		while(!matchesEntry(input, allowedEntry)){
-			displayMessage("You must enter one of these words: ");
-			for(String s: allowedEntry){
-				System.out.print(s+" ");
-			}
-			displayMessage("\n");
-			input = in.nextLine();
-		}
-		return input;
-	}
-
-	private static boolean matchesEntry(String text, String[] list){
-		for(String l: list){
-			if(l.equals(text))return true;
-		}
-		return false;
-	}
-
-	private  void showCatalog() {
-		displayMessage("The catalog contains these Books:\n");
-		for(Book b: catalog){
-			displayMessage("   "+b.toString()+"\n");
-		}
-	}
-
-	private void load() {
+	
+	public List<MarioPowerUp> testFileLoading() {
+		Scanner in = new Scanner(System.in);
 		String fileName = "";
-		//empty the catalog to prepare for a new load
-		catalog = new ArrayList<Book>();
+		List<MarioPowerUp> content = new ArrayList<MarioPowerUp>();
 		//use this boolean to control the while loop. The user should have multiple chances to enter a correct filename
 		boolean opened = false;
 		while(!opened){
@@ -153,24 +67,32 @@ public class CatalogMaker {
 				fileName = in.nextLine();
 				FileReader fileReader = new FileReader(new File(fileName));
 				String line = "";
-				//a BufferedReader enables us to read teh file one line at a time
+				//a BufferedReader enables us to read the file one line at a time
 				BufferedReader br = new BufferedReader(fileReader);
 				while ((line = br.readLine()) != null) {
-
-					String[] param = line.split(",");
-					//add a new Book for each line in the save file
-					catalog.add(new Book(param[0],param[1],Integer.parseInt(param[2])));
-
-
-
+					String[] param = line.split(" ");
+					content.add(new MarioPowerUp(param[0], Integer.parseInt(param[1])));
+					/*
+					 * useful later:
+					 * split only a comma that has an even number of quotes ahead of it
+ 						String[] row = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+					 */
 				}
 				br.close();
 				opened = true;
-			}catch (IOException e) {
+			}
+			catch (IOException e) {
+
 				System.out.println("The file name you specified does not exist.");
+
 			}
 		}
-		create();
-
+		//close the Scanner
+		in.close();
+		return content;
+	}
+	
+	public List<MarioPowerUp> getCatalog(){
+		return list;
 	}
 }

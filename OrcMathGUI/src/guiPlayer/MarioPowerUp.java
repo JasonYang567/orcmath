@@ -28,5 +28,14 @@ public class MarioPowerUp extends Component{
 	public String toString(){
 		return name + " " + price;
 	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+	
+	public String getPrice() {
+		return Integer.toString(price);
+	}
 	
 }
