@@ -8,9 +8,9 @@ public class Mario extends AnimatedComponent{
 
 	public Mario(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		addSequence("resources/MarioSprite.png",150,25,860,28,35,7);
-		Thread go = new Thread(this);
-		go.start();
+		addSequence("resources/MarioSprite.png",150,24,861,20,35,7);
+		Thread animation = new Thread(this);
+		animation.start();
 		update();
 	}
 

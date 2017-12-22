@@ -12,7 +12,7 @@ public class CardGUI extends GUIApplication{
 	}
 
 	public static void main(String[] args){
-		CardGUI sample = new CardGUI(1247, 1148);
+		CardGUI sample = new CardGUI(1200, 1050);
 		Thread go = new Thread(sample);
 		go.start();
 	}

@@ -27,13 +27,14 @@ public class CardScreen extends FullFunctionScreen{
 	public void initAllObjects(List<Visible> viewObjects) {
 		objects = viewObjects;	
 		Graphic	image = new Graphic(0, 0, "resources/santa is a lie.jpg");
-		next = new Button(0,0,1247,1148,"", new Action() {
+		next = new Button(0,0,1200,1050,"", new Action() {
 			public void act() {
 				Graphic image2 = new Graphic(0,0,"resources/santa wrecking ball.jpg");
 				objects.add(image2);
 				objects.remove(image);
 				objects.remove(next);
-				Mario mario = new Mario(1000,1000,getWidth(),getHeight());
+				Mario mario = new Mario(500,500,50,50);
+				objects.add(mario);
 			}
 		});
 		objects.add(next);
