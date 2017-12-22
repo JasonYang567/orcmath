@@ -1,5 +1,7 @@
 package holidayCard;
 
+import java.awt.Graphics2D;
+
 import guiTeacher.components.AnimatedComponent;
 
 public class Mario extends AnimatedComponent{
@@ -12,4 +14,10 @@ public class Mario extends AnimatedComponent{
 		update();
 	}
 
+	@Override
+	public void update(Graphics2D g) {
+//		g.setColor(Color.black);
+//		g.fillRect(0, 0, getWidth(), getHeight());
+		super.update(g);
+	}
 }
