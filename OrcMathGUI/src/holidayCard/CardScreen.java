@@ -33,6 +33,7 @@ public class CardScreen extends FullFunctionScreen{
 				objects.add(image2);
 				objects.remove(image);
 				objects.remove(next);
+				Mario mario = new Mario(1000,1000,getWidth(),getHeight());
 			}
 		});
 		objects.add(next);
