@@ -32,6 +32,7 @@ public class CardScreen extends FullFunctionScreen{
 				Graphic image2 = new Graphic(0,0,"resources/santa wrecking ball.jpg");
 				objects.add(image2);
 				objects.remove(image);
+				objects.remove(next);
 			}
 		});
 		objects.add(next);
