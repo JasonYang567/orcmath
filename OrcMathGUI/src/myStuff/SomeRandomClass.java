@@ -1,4 +1,4 @@
-package myStuff;
+package myStuff; 
 
 public class SomeRandomClass {
 
