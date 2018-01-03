@@ -13,6 +13,7 @@ public class Simon extends ClickableScreen{
 
 	public Simon(int width, int height) {
 		super(width, height);
+		sequencelength = 3;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -56,7 +57,7 @@ public class Simon extends ClickableScreen{
 	
 	public ArrayList<Color> sequence(){
 		move = new ArrayList<Color>();
-		while(move.size() < 3) {
+		while(move.size() < sequencelength) {
 			int num = (int)(Math.random()*3);
 			if(move.size() > 1) {
 				for(Color c : move) {
