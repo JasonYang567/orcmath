@@ -27,7 +27,7 @@ public class Book extends Component implements Clickable{
 		update();
 	}
 
-	
+	 
 	public String toString(){
 		return title+","+author+","+pages;
 	}

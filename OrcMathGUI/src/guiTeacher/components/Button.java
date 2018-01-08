@@ -172,7 +172,7 @@ public class Button extends TextLabel implements Clickable{
 		}
 		return hovered;
 	}
-	
+	 
 	public void act(){
 		if(action != null) action.act();
 	}
