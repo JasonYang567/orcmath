@@ -34,12 +34,10 @@ public class Simon extends FullFunctionScreen{
 		super(width, height);
 		// TODO Auto-generated constructor stub
 	} 
-
-	
 	
 	public void setUpTextArea() {
 		numRounds = new TextArea(400,100,300,300,"Round: " + round + "\n Sequence Length: " + sequencelength);
-		turn = new TextArea(500,1500,100,100,"Simon's Turn");
+		turn = new TextArea(400,400,100,100,"Simon's Turn");
 	}
 
 	@Override
@@ -74,6 +72,7 @@ public class Simon extends FullFunctionScreen{
 		start =  new Button(400,300,100,100,"Start",new Action() {
 			@Override
 			public void act() {
+				
 				SimonsTurn();
 			}
 		});
@@ -87,85 +86,87 @@ public class Simon extends FullFunctionScreen{
 		viewObjects.add(turn);
 	}
 	
-	protected void SimonsTurn() {
+	public void SimonsTurn() {
+		
 		Thread s = new Thread(new Runnable() {
 			public void run() {
 				sequence();
-				for(int i = 0; i < move.size();i++) {
-					if(move.get(i) == Color.red) {
-						red.setBackground(Color.white);
-						update();
+				System.out.println("a");
+				for(int i = 0; i < move.size();i++) { 
+					System.out.println("b");
+					if(move.get(i).equals(Color.red)) {
+						red.setBackground(Color.WHITE);
+						System.out.println("vd");
 						try {
-							Thread.sleep(200);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						update();
 						red.setBackground(Color.red);
 						update();
 					}
-					if(move.get(i) == Color.blue) {
-						red.setBackground(Color.white);
-						update();
+					if(move.get(i).equals(Color.blue)) {
+						blue.setBackground(Color.WHITE);
+						System.out.println("vd");
 						try {
-							Thread.sleep(200);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						red.setBackground(Color.blue);
+						update();
+						blue.setBackground(Color.blue);
 						update();
 					}
-					if(move.get(i) == Color.green) {
-						red.setBackground(Color.white);
-						update();
+					if(move.get(i).equals( Color.green)) {
+						green.setBackground(Color.WHITE);
+						System.out.println("vd");
 						try {
-							Thread.sleep(200);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						red.setBackground(Color.green);
+						update();
+						green.setBackground(Color.green);
 						update();
 					}
-					if(move.get(i) == Color.yellow) {
-						red.setBackground(Color.white);
-						update();
+					if(move.get(i).equals(Color.yellow)) {
+						yellow.setBackground(Color.white);
+						System.out.println("vd");
 						try {
-							Thread.sleep(200);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						red.setBackground(Color.yellow);
+						update();
+						yellow.setBackground(Color.yellow);
 						update();
 					}
 				}
 			}
 		});
-			
+		s.start();
 		// TODO Auto-generated method stub
 		
 	}
 
-	public ArrayList<Color> sequence(){
+	public void sequence(){
 		move = new ArrayList<Color>();
+		
+		int num = -1;
 		while(move.size() < sequencelength) {
-			int num = (int)(Math.random()*3);
-			if(move.size() > 1) {
-				for(Color c : move) {
-					if(c.equals(colors[num])) {
-						move.remove(c);
-					}
-				}
-			}	
-			else {
-				move.add(colors[num]);
-			}
+			int newNum = (int) (Math.floor(Math.random()*4));
+			
+			 while (num == newNum) {
+				 newNum = (int) (Math.floor(Math.random()*4));
+				 
+			 }
+			 num = newNum;
+			 move.add(colors[num]);		
 		}
-		return move;
 	}
-	
-
-	
 }
